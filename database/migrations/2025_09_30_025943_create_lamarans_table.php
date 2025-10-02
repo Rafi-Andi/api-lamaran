@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('lowongan_kerja_id')->constrained();
             $table->text('surat_lamaran');
-            $table->enum('status', ['menunggu', 'diterima', 'ditolak']);
+            $table->enum('status', ['menunggu', 'diterima', 'ditolak'])->default('menunggu');
             $table->timestamps();
         });
     }

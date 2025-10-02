@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\LowonganKerja;
+use Exception;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class LowonganKerjaController extends Controller
 {
@@ -12,7 +14,17 @@ class LowonganKerjaController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $lowongan = LowonganKerja::select('id', 'judul', 'deskripsi')->where('sedang_terbuka', 1)->get();
+
+            return response()->json([
+                "lowongan" => $lowongan
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "error" => $e
+            ], 500);
+        }
     }
 
     /**
